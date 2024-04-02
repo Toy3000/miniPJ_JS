@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Users</title>
+    <style>
+        .user-block {
+            width: 45%;
+            margin: 2.5%;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .user-block a {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div id="users"></div>
+<script>
+    fetch('https://jsonplaceholder.typicode.com/users')
+        .then(response => response.json())
+        .then(users => {
+            const usersDiv = document.getElementById('users');
+            users.forEach(user => {
+                const userBlock = document.createElement('div');
+                userBlock.className = 'user-block';
+                userBlock.innerHTML = `
+                        <h2>${user.name}</h2>
+                        <p>ID: ${user.id}</p>
+                        <a href="user-details.html?id=${user.id}">Details</a>
+                    `;
+                usersDiv.appendChild(userBlock);
+            });
+        });
+</script>
+</body>
+</html>

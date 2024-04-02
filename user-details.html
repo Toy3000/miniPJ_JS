@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User Details</title>
+    <style>
+        .post-block {
+            width: 18%;
+            margin: 1%;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .post-block a {
+            display: block;
+            margin-top: 10px;
+            text-align: center;
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div id="user"></div>
+<button id="load-posts">Post of current user</button>
+<div id="posts"></div>
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get('id');
+
+    fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
+        .then(response => response.json())
+        .then(user => {
+            const userDiv = document.getElementById('user');
+            userDiv.innerHTML = `
+                    <h2>${user.name}</h2>
+                    <p>ID: ${user.id}</p>
+                    <p>Email: ${user.email}</p>
+                    <p>Phone: ${user.phone}</p>
+                    <p>Website: ${user.website}</p>
+                    <p>Company: ${user.company.name}</p>
+                    <p>City: ${user.address.city}</p>
+                `;
+        });
+
+    document.getElementById('load-posts').addEventListener('click', () => {
+        fetch(`https://jsonplaceholder.typicode.com/users/${userId}/posts`)
+            .then(response => response.json())
+            .then(posts => {
+                const postsDiv = document.getElementById('posts');
+                postsDiv.innerHTML = '';
+                posts.forEach(post => {
+                    const postBlock = document.createElement('div');
+                    postBlock.className = 'post-block';
+                    postBlock.innerHTML = `
+                            <h3>${post.title}</h3>
+                            <a href="post-details.html?id=${post.id}">Details</a>
+                        `;
+                    postsDiv.appendChild(postBlock);
+                });
+            });
+    });
+</script>
+</body>
+</html>
