@@ -1,8 +1,32 @@
+<!--На странице user-details.html:
+4 Вивести всю, без виключення, інформацію про об'єкт user на який клікнули
+5 Додати кнопку "post of current user", при кліку на яку, з'являються title всіх постів поточного
+юзера
+(для получения постов используйте эндпоинт https://jsonplaceholder.typicode.com/users/USER_ID/posts)
+6 Каждому посту додати кнопку/посилання, при кліку на яку відбувається перехід на сторінку
+post-details.html, котра має детальну інфу про поточний пост.-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>User Details</title>
     <style>
+        /*user-details.html - блок з інфою про user зверху сторінки. Кнопка нижчє, на 90% */
+        /*ширини сторінки, по центру. блоки з короткою іфною про post - в ряд по 5 .*/
+        .flex2{
+            text-align: center;
+        }
+        .flex3{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .flex4{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
         .post-block {
             width: 18%;
             margin: 1%;
@@ -21,12 +45,20 @@
             border-radius: 5px;
             text-decoration: none;
         }
+        .stb{
+            width: 90vw;
+            height: 35px;
+            background-color: yellowgreen;
+            border-radius: 5px;
+            box-sizing: border-box;
+
+        }
     </style>
 </head>
 <body>
-<div id="user"></div>
-<button id="load-posts">Post of current user</button>
-<div id="posts"></div>
+<div id="user" class="flex2"></div>
+<div class="flex3"><button id="load-posts" class="stb">Post of current user</button></div>
+<div id="posts" class="flex4"></div>
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const userId = urlParams.get('id');

@@ -1,8 +1,19 @@
+<!--На странице post-details.html:-->
+<!--7 Вивести всю, без виключення, інформацію про об'єкт post на який клікнули .-->
+<!--8 Нижчє інформаці про пост, вивести всі коментарі поточного поста-->
+<!--(ендпоінт  - https://jsonplaceholder.typicode.com/posts/POST_ID/comments)-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Post Details</title>
     <style>
+        /*post-details.html - блок з інфою про пост зверху. Коментарі - по 4 в ряд.*/
+        /*Всі елементи котрі характеризують users, posts, comments візуалізувати, так,*/
+        /*щоб було видно що це блоки (дати фон. марджини і тд)*/
+        .post-st{
+            text-align: center;
+            width: 97vw;
+        }
         .comment-block {
             width: 23%;
             margin: 1%;
@@ -11,11 +22,18 @@
             border-radius: 5px;
             box-sizing: border-box;
         }
+        .comm-st{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
-<div id="post"></div>
-<div id="comments"></div>
+<div id="post" class="post-st"></div>
+<div id="comments" class="comm-st"></div>
 <script>
     const urlParams = new URLSearchParams(window.location.search);
     const postId = urlParams.get('id');
